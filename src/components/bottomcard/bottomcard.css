@@ -1,5 +1,5 @@
 .container {
-  height: min(60vh, 800px);
+  height: min(50vh, 800px);
   overflow-y: auto;
   padding: 8px;
 }
@@ -7,13 +7,22 @@
 .list-card {
   display: flex;
   align-items: center;
-  background-color: #ffffff;
+  background-color: var(--bg-surface);
   padding: 16px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
   margin-bottom: 12px;
   gap: 16px;
-  border: 1px solid #eee;
+  border: 1px solid var(--border-color);
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.list-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
 .round-checkbox {
@@ -21,23 +30,25 @@
   -webkit-appearance: none;
   width: 24px;
   height: 24px;
-  border: 2px solid #ccc;
+  border: 2px solid var(--border-color);
+  background-color: var(--bg-surface);
   border-radius: 50%;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  transition: var(--transition);
 }
 
 .round-checkbox:checked {
-  background-color: #4caf50;
-  border-color: #4caf50;
+  background-color: var(--primary);
+  border-color: var(--primary);
 }
 
 .round-checkbox:checked::after {
   content: "✓";
-  color: white;
+  color: #ffffff;
   font-weight: bold;
 }
 
@@ -50,39 +61,45 @@
 .card-title {
   margin: 0;
   font-size: 1.1rem;
-  color: #333;
+  color: var(--text-main);
+  transition: color 0.3s ease;
 }
 
 .card-title.completed-text {
   text-decoration: line-through;
-  color: #999;
+  color: var(--text-muted);
 }
 
 .card-priority {
   margin-top: 6px;
   font-size: 0.8rem;
-  background-color: #f0f0f0;
+  background-color: var(--badge-bg);
   padding: 4px 8px;
   border-radius: 12px;
   width: max-content;
-  color: #555;
+  color: var(--text-main);
   font-weight: 600;
+  transition: background-color 0.3s ease;
 }
 
 .delete-btn {
   background: transparent;
   border: none;
-  color: #94a3b8;
+  color: var(--text-muted);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 8px;
   border-radius: 6px;
-  transition: all 0.2s ease;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .delete-btn:hover {
-  color: #ef4444;
-  background-color: #fee2e2;
+  color: var(--delete-color);
+  background-color: var(--delete-bg-hover);
+  transform: scale(1.15);
 }

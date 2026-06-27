@@ -1,14 +1,13 @@
 header h1 {
-  color: rgb(113, 163, 41);
+  color: var(--primary);
   font-size: 2.5rem;
   font-weight: 700;
   text-align: center;
   letter-spacing: 1px;
-  font-size: 56px;
+}
 
-  span {
-    color: rgb(212, 175, 55);
-  }
+header h1 span {
+  color: var(--accent);
 }
 
 header {

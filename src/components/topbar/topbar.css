@@ -19,17 +19,19 @@
 input[type="text"] {
   padding: 12px 16px;
   flex-grow: 1;
-  border: 2px solid #e2e8f0;
+  background-color: var(--bg-surface);
+  color: var(--text-main);
+  border: 2px solid var(--border-color);
   border-radius: 8px;
   font-size: 1rem;
   outline: none;
-  transition: border-color 0.2s ease;
+  transition: var(--transition);
   box-sizing: border-box;
   min-width: 0;
 }
 
 input[type="text"]:focus {
-  border-color: rgb(140, 195, 59);
+  border-color: var(--primary);
 }
 
 button {
@@ -38,18 +40,27 @@ button {
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: var(--transition);
   box-sizing: border-box;
   border: 2px solid transparent;
 }
 
 button.add {
-  background-color: rgb(140, 195, 59);
-  color: white;
+  background-color: var(--primary);
+  color: #ffffff;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.15s ease;
 }
 
 button.add:hover {
-  background-color: rgb(113, 163, 41);
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+}
+
+button.add:active {
+  transform: translateY(0);
 }
 
 .status-dropdown {
@@ -58,11 +69,11 @@ button.add:hover {
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  background-color: #f8fafc;
-  color: #334155;
-  border: 2px solid #e2e8f0;
+  background-color: var(--badge-bg);
+  color: var(--text-main);
+  border: 2px solid var(--border-color);
   outline: none;
-  transition: all 0.2s ease;
+  transition: var(--transition);
   box-sizing: border-box;
 }
 
@@ -71,9 +82,9 @@ button.add:hover {
 }
 
 .status-dropdown:hover {
-  background-color: #e2e8f0;
+  background-color: var(--border-color);
 }
 
 .status-dropdown:focus {
-  border-color: rgb(140, 195, 59);
+  border-color: var(--primary);
 }

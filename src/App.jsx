@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/header/Header";
 import InputBox from "./components/topbar/Topbar";
 import ListContainer from "./components/bottomcard/ListContainer";
@@ -11,6 +11,15 @@ function App() {
   });
 
   const [filter, setFilter] = useState("All");
+  const [theme, setTheme] = useState("light");
+
+  useEffect(() => {
+    document.body.className = theme === "dark" ? "dark-theme" : "";
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+  };
 
   const handleCheckBox = (id) => {
     setLists(
@@ -50,7 +59,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
+      <Header theme={theme} toggleTheme={toggleTheme} />
       <main>
         <InputBox updateList={updateList} onFilter={handleFilter} />
         <hr className="divider" />

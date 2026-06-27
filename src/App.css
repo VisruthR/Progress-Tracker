@@ -1,29 +1,96 @@
+:root {
+  --bg-body: #f1f2f3;
+  --bg-surface: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --primary: #65a30d;
+  --primary-hover: #4d7c0f;
+  --accent: #d4af37;
+  --badge-bg: #f1f5f9;
+  --delete-color: #ef4444;
+  --delete-bg-hover: #fee2e2;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --transition: all 0.2s ease;
+}
+
+body.dark-theme {
+  --bg-body: #0f172a;
+  --bg-surface: #1e293b;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --border-color: #334155;
+  --primary: #84cc16;
+  --primary-hover: #a3e635;
+  --accent: #fcd34d;
+  --badge-bg: #334155;
+  --delete-color: #f87171;
+  --delete-bg-hover: #450a0a;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+}
+
 body {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 0;
   padding: 0;
-  background-color: #f9fafb;
+  background-color: var(--bg-body);
+  color: var(--text-main);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   min-height: 100vh;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 main {
   display: flex;
   flex-direction: column;
   width: min(80vw, 1200px);
-  background-color: #ffffff;
+  background-color: var(--bg-surface);
   padding: 2rem;
   margin-top: 2rem;
   border-radius: 16px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
   gap: 30px;
+  transition: background-color 0.3s ease;
 }
 
 .divider {
   width: 100%;
   border: none;
-  border-top: 2px solid #e2e8f0;
+  border-top: 2px solid var(--border-color);
   margin: 0;
+}
+
+.header-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+  width: 100%;
+}
+
+.theme-toggle {
+  position: absolute;
+  right: 16px;
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 12px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background-color 0.2s ease,
+    transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.theme-toggle:hover {
+  background-color: var(--badge-bg);
+  transform: scale(1.15) rotate(15deg);
 }
