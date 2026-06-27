@@ -10,25 +10,23 @@ function ListContainer({ lists, onToggle, filter, onDelete }) {
       block: "end",
     });
   }, [lists]);
+
+  const filteredTasks = lists.filter((taskObj) => {
+    if (filter === "Pending") return taskObj.isCompleted === false;
+    if (filter === "Completed") return taskObj.isCompleted === true;
+    return true;
+  });
+
   return (
     <div className="container">
-      {lists.map((taskObj) => {
-        if (
-          (taskObj.isCompleted === false && filter === "Pending") ||
-          (taskObj.isCompleted === true && filter === "Completed") ||
-          filter === "All"
-        ) {
-          return (
-            <ListCard
-              key={taskObj.id}
-              list={taskObj}
-              onToggle={onToggle}
-              onDelete={onDelete}
-            />
-          );
-        }
-        console.log(taskObj);
-      })}
+      {filteredTasks.map((taskObj) => (
+        <ListCard
+          key={taskObj.id}
+          list={taskObj}
+          onToggle={onToggle}
+          onDelete={onDelete}
+        />
+      ))}
       <div className="scroll" ref={scrollRef} />
     </div>
   );

@@ -13,6 +13,11 @@ function InputBox({ updateList, onFilter }) {
     event.preventDefault();
     const cleanedText = text.trim();
 
+    if (cleanedText === "") {
+      setText("");
+      return;
+    }
+
     const finalOutput = {
       text: capitalizeWordsRegex(cleanedText),
       priority: priority,
