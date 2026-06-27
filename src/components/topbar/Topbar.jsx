@@ -21,7 +21,7 @@ function InputBox({ updateList, onFilter }) {
     updateList(finalOutput);
 
     setText("");
-    setPriority("HIgh");
+    setPriority("High");
   };
 
   const handleTyping = (e) => {

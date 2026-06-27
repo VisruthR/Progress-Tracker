@@ -39,7 +39,6 @@ function App() {
 
   const handleFilter = (text) => {
     setFilter(text);
-    console.log(text);
   };
 
   const handleDelete = (id) => {
