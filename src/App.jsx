@@ -37,6 +37,7 @@ function App() {
       <Header />
       <main>
         <InputBox />
+        <hr className="divider" />
         <ListContainer lists={lists} onToggle={handleCheckBox} />
       </main>
     </div>
