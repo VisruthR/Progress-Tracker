@@ -1,0 +1,503 @@
+Directory structure:
+└── progress-tracker/
+    ├── README.md
+    ├── eslint.config.js
+    ├── index.html
+    ├── package.json
+    ├── vite.config.js
+    └── src/
+        ├── App.css
+        ├── App.jsx
+        ├── main.jsx
+        └── components/
+            ├── bottomcard/
+            │   ├── bottomcard.css
+            │   ├── ListCard.jsx
+            │   └── ListContainer.jsx
+            ├── header/
+            │   ├── Header.css
+            │   └── Header.jsx
+            └── topbar/
+                ├── topbar.css
+                └── Topbar.jsx
+
+================================================
+FILE: README.md
+================================================
+# React + Vite
+
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+
+## React Compiler
+
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+
+
+================================================
+FILE: eslint.config.js
+================================================
+import js from '@eslint/js'
+import globals from 'globals'
+import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefresh from 'eslint-plugin-react-refresh'
+import { defineConfig, globalIgnores } from 'eslint/config'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{js,jsx}'],
+    extends: [
+      js.configs.recommended,
+      reactHooks.configs.flat.recommended,
+      reactRefresh.configs.vite,
+    ],
+    languageOptions: {
+      globals: globals.browser,
+      parserOptions: { ecmaFeatures: { jsx: true } },
+    },
+  },
+])
+
+
+
+================================================
+FILE: index.html
+================================================
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>progress-tracker</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+
+
+
+================================================
+FILE: package.json
+================================================
+{
+  "name": "progress-tracker",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.2",
+    "eslint": "^10.5.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.3",
+    "globals": "^17.6.0",
+    "vite": "^8.1.0"
+  }
+}
+
+
+
+================================================
+FILE: vite.config.js
+================================================
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [react()],
+})
+
+
+
+================================================
+FILE: src/App.css
+================================================
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  background-color: #f9fafb;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  width: min(80vw, 1200px);
+  background-color: #ffffff;
+  padding: 2rem;
+  margin-top: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  gap: 20px;
+}
+
+
+
+================================================
+FILE: src/App.jsx
+================================================
+import { useState } from "react";
+import Header from "./components/header/Header";
+import InputBox from "./components/topbar/Topbar";
+import ListContainer from "./components/bottomcard/ListContainer";
+import "./App.css";
+
+function App() {
+  const [lists, setLists] = useState([
+    {
+      id: 1,
+      title: "Plan my next React app",
+      priority: "High",
+      isCompleted: true,
+    },
+
+    {
+      id: 2,
+      title: "Sleep",
+      priority: "Low",
+      isCompleted: false,
+    },
+  ]);
+
+  const handleCheckBox = (id) => {
+    setLists(
+      lists.map((list) => {
+        if (id === list.id) {
+          return { ...list, isCompleted: !list.isCompleted };
+        }
+        return list;
+      }),
+    );
+  };
+
+  return (
+    <div className="App">
+      <Header />
+      <main>
+        <InputBox />
+        <ListContainer lists={lists} onToggle={handleCheckBox} />
+      </main>
+    </div>
+  );
+}
+
+export default App;
+
+
+
+================================================
+FILE: src/main.jsx
+================================================
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App.jsx";
+
+createRoot(document.getElementById("root")).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+);
+
+
+
+================================================
+FILE: src/components/bottomcard/bottomcard.css
+================================================
+.container {
+  height: min(60vh, 800px);
+  overflow-y: auto;
+  padding: 8px;
+}
+
+.list-card {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 12px;
+  gap: 16px;
+  border: 1px solid #eee;
+}
+
+.round-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.round-checkbox:checked {
+  background-color: #4caf50;
+  border-color: #4caf50;
+}
+
+.round-checkbox:checked::after {
+  content: "âœ“";
+  color: white;
+  font-weight: bold;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.card-title.completed-text {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.card-priority {
+  margin-top: 6px;
+  font-size: 0.8rem;
+  background-color: #f0f0f0;
+  padding: 4px 8px;
+  border-radius: 12px;
+  width: max-content;
+  color: #555;
+  font-weight: 600;
+}
+
+
+
+================================================
+FILE: src/components/bottomcard/ListCard.jsx
+================================================
+import "./bottomcard.css";
+
+function ListCard({ list, onToggle }) {
+  return (
+    <div className="list-card">
+      <input
+        type="checkbox"
+        className="round-checkbox"
+        checked={list.isCompleted}
+        onChange={() => onToggle(list.id)}
+      />
+
+      <div className="card-content">
+        <h3
+          className={`card-title ${list.isCompleted ? "completed-text" : ""}`}
+        >
+          {list.title}
+        </h3>
+
+        <span className="card-priority">{list.priority} Priority</span>
+      </div>
+    </div>
+  );
+}
+
+export default ListCard;
+
+
+
+================================================
+FILE: src/components/bottomcard/ListContainer.jsx
+================================================
+import ListCard from "./ListCard.jsx";
+import "./bottomcard.css";
+
+function ListContainer({ lists, onToggle }) {
+  return (
+    <div className="container">
+      {lists.map((taskObj) => (
+        <ListCard key={taskObj.id} list={taskObj} onToggle={onToggle} />
+      ))}
+    </div>
+  );
+}
+
+export default ListContainer;
+
+
+
+================================================
+FILE: src/components/header/Header.css
+================================================
+header h1 {
+  color: rgb(113, 163, 41);
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+header {
+  margin-bottom: 2rem;
+}
+
+header span {
+  color: rgb(212, 175, 55);
+}
+
+
+
+================================================
+FILE: src/components/header/Header.jsx
+================================================
+import "./Header.css";
+
+function Header() {
+  return (
+    <header>
+      <h1>
+        Progress <span>Tracker</span>
+      </h1>
+    </header>
+  );
+}
+
+export default Header;
+
+
+
+================================================
+FILE: src/components/topbar/topbar.css
+================================================
+.topbar-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 800px;
+  align-self: center;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-grow: 1;
+}
+
+input[type="text"] {
+  padding: 12px 16px;
+  flex-grow: 1;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+input[type="text"]:focus {
+  border-color: rgb(140, 195, 59);
+}
+
+button {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  border: 2px solid transparent;
+}
+
+button.add {
+  background-color: rgb(140, 195, 59);
+  color: white;
+}
+
+button.add:hover {
+  background-color: rgb(113, 163, 41);
+}
+
+.status-dropdown {
+  padding: 12px 32px 12px 16px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: #f8fafc;
+  color: #334155;
+  border: 2px solid #e2e8f0;
+  outline: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.status-dropdown:hover {
+  background-color: #e2e8f0;
+}
+
+.status-dropdown:focus {
+  border-color: rgb(140, 195, 59);
+}
+
+
+
+================================================
+FILE: src/components/topbar/Topbar.jsx
+================================================
+import "./topbar.css";
+
+function InputBox() {
+  return (
+    <div className="topbar-wrapper">
+      <select className="status-dropdown">
+        <option value="all">All</option>
+        <option value="pending">Pending</option>
+        <option value="completed">Completed</option>
+      </select>
+      <form action="" className="input-container">
+        <input type="text" placeholder="Type Any Task..." required />
+        <button className="add">Add</button>
+      </form>
+    </div>
+  );
+}
+
+export default InputBox;
+
+

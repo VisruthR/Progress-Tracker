@@ -1,0 +1,75 @@
+.topbar-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 800px;
+  align-self: center;
+  flex-wrap: wrap;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+input[type="text"] {
+  padding: 12px 16px;
+  flex-grow: 1;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+input[type="text"]:focus {
+  border-color: rgb(140, 195, 59);
+}
+
+button {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  border: 2px solid transparent;
+}
+
+button.add {
+  background-color: rgb(140, 195, 59);
+  color: white;
+}
+
+button.add:hover {
+  background-color: rgb(113, 163, 41);
+}
+
+.status-dropdown {
+  padding: 12px 32px 12px 16px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: #f8fafc;
+  color: #334155;
+  border: 2px solid #e2e8f0;
+  outline: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.status-dropdown:hover {
+  background-color: #e2e8f0;
+}
+
+.status-dropdown:focus {
+  border-color: rgb(140, 195, 59);
+}
