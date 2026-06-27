@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import ListCard from "./ListCard.jsx";
 import "./bottomcard.css";
 
-function ListContainer({ lists, onToggle, filter }) {
+function ListContainer({ lists, onToggle, filter, onDelete }) {
   const scrollRef = useRef(null);
   useEffect(() => {
     scrollRef.current?.scrollIntoView({
@@ -19,7 +19,12 @@ function ListContainer({ lists, onToggle, filter }) {
           filter === "All"
         ) {
           return (
-            <ListCard key={taskObj.id} list={taskObj} onToggle={onToggle} />
+            <ListCard
+              key={taskObj.id}
+              list={taskObj}
+              onToggle={onToggle}
+              onDelete={onDelete}
+            />
           );
         }
         console.log(taskObj);

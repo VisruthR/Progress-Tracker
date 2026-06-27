@@ -5,12 +5,16 @@ function InputBox({ updateList, onFilter }) {
   const [text, setText] = useState("");
   const [priority, setPriority] = useState("High");
 
+  function capitalizeWordsRegex(str) {
+    return str.replace(/\b\w/g, (char) => char.toUpperCase());
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const cleanedText = text.trim();
 
     const finalOutput = {
-      text: cleanedText,
+      text: capitalizeWordsRegex(cleanedText),
       priority: priority,
     };
 

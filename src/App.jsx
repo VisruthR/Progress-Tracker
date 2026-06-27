@@ -5,21 +5,11 @@ import ListContainer from "./components/bottomcard/ListContainer";
 import "./App.css";
 
 function App() {
-  const [lists, setLists] = useState([
-    {
-      id: 1,
-      title: "Plan my next React app",
-      priority: "High",
-      isCompleted: true,
-    },
+  const [lists, setLists] = useState(() => {
+    const savedData = localStorage.getItem("list");
+    return savedData != null ? JSON.parse(savedData) : [];
+  });
 
-    {
-      id: 2,
-      title: "Sleep",
-      priority: "Low",
-      isCompleted: false,
-    },
-  ]);
   const [filter, setFilter] = useState("All");
 
   const handleCheckBox = (id) => {
@@ -34,20 +24,29 @@ function App() {
   };
 
   const updateList = (input) => {
-    setLists([
-      ...lists,
-      {
-        id: crypto.randomUUID(),
-        title: input.text,
-        priority: input.priority,
-        isCompleted: false,
-      },
-    ]);
+    const newInput = {
+      id: crypto.randomUUID(),
+      title: input.text,
+      priority: input.priority,
+      isCompleted: false,
+    };
+
+    const updatedTasks = [...lists, newInput];
+
+    setLists(updatedTasks);
+    localStorage.setItem("list", JSON.stringify(updatedTasks));
   };
 
   const handleFilter = (text) => {
     setFilter(text);
     console.log(text);
+  };
+
+  const handleDelete = (id) => {
+    const newList = lists.filter((item) => item.id !== id);
+
+    setLists(newList);
+    localStorage.setItem("list", JSON.stringify(newList));
   };
 
   return (
@@ -60,6 +59,7 @@ function App() {
           lists={lists}
           onToggle={handleCheckBox}
           filter={filter}
+          onDelete={handleDelete}
         />
       </main>
     </div>
