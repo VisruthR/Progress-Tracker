@@ -66,6 +66,10 @@ button.add:hover {
   box-sizing: border-box;
 }
 
+.status-dropdown.priority {
+  padding: 12px 12px 12px 16px;
+}
+
 .status-dropdown:hover {
   background-color: #e2e8f0;
 }

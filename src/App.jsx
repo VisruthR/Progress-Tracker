@@ -32,11 +32,23 @@ function App() {
     );
   };
 
+  const updateList = (input) => {
+    setLists([
+      ...lists,
+      {
+        id: crypto.randomUUID(),
+        title: input.text,
+        priority: input.priority,
+        isCompleted: false,
+      },
+    ]);
+  };
+
   return (
     <div className="App">
       <Header />
       <main>
-        <InputBox />
+        <InputBox updateList={updateList} />
         <hr className="divider" />
         <ListContainer lists={lists} onToggle={handleCheckBox} />
       </main>

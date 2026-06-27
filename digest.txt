@@ -24,23 +24,7 @@ Directory structure:
 ================================================
 FILE: README.md
 ================================================
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-
+[Empty file]
 
 
 ================================================
@@ -161,6 +145,13 @@ main {
   gap: 30px;
 }
 
+.divider {
+  width: 100%;
+  border: none;
+  border-top: 2px solid #e2e8f0;
+  margin: 0;
+}
+
 
 
 ================================================
@@ -200,11 +191,24 @@ function App() {
     );
   };
 
+  const updateList = (input) => {
+    setLists([
+      ...lists,
+      {
+        id: crypto.randomUUID(),
+        title: input.text,
+        priority: input.priority,
+        isCompleted: false,
+      },
+    ]);
+  };
+
   return (
     <div className="App">
       <Header />
       <main>
-        <InputBox />
+        <InputBox updateList={updateList} />
+        <hr className="divider" />
         <ListContainer lists={lists} onToggle={handleCheckBox} />
       </main>
     </div>
@@ -341,15 +345,24 @@ export default ListCard;
 ================================================
 FILE: src/components/bottomcard/ListContainer.jsx
 ================================================
+import { useEffect, useRef } from "react";
 import ListCard from "./ListCard.jsx";
 import "./bottomcard.css";
 
 function ListContainer({ lists, onToggle }) {
+  const scrollRef = useRef(null);
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+    });
+  }, [lists]);
   return (
     <div className="container">
       {lists.map((taskObj) => (
         <ListCard key={taskObj.id} list={taskObj} onToggle={onToggle} />
       ))}
+      <div className="scroll" ref={scrollRef} />
     </div>
   );
 }
@@ -470,6 +483,10 @@ button.add:hover {
   box-sizing: border-box;
 }
 
+.status-dropdown.priority {
+  padding: 12px 12px 12px 16px;
+}
+
 .status-dropdown:hover {
   background-color: #e2e8f0;
 }
@@ -483,9 +500,33 @@ button.add:hover {
 ================================================
 FILE: src/components/topbar/Topbar.jsx
 ================================================
+import { useState } from "react";
 import "./topbar.css";
 
-function InputBox() {
+function InputBox({ updateList }) {
+  const [text, setText] = useState("");
+  const [priority, setPriority] = useState("High");
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const cleanedText = text.trim();
+
+    const finalOutput = {
+      text: cleanedText,
+      priority: priority,
+    };
+
+    updateList(finalOutput);
+
+    setText("");
+    setPriority("HIgh");
+  };
+
+  const handleTyping = (e) => {
+    const typed = e.target.value;
+    setText(typed);
+  };
+
   return (
     <div className="topbar-wrapper">
       <select className="status-dropdown">
@@ -493,9 +534,28 @@ function InputBox() {
         <option value="pending">Pending</option>
         <option value="completed">Completed</option>
       </select>
-      <form action="" className="input-container">
-        <input type="text" placeholder="Type Any Task..." required />
-        <button className="add">Add</button>
+      <form action="" className="input-container" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Type Any Task..."
+          required
+          autoCorrect="on"
+          autoFocus
+          onChange={handleTyping}
+          value={text}
+        />
+        <select
+          className="status-dropdown priority"
+          onChange={(e) => setPriority(e.target.value)}
+          value={priority}
+        >
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+        </select>
+        <button className="add" type="submit">
+          Add
+        </button>
       </form>
     </div>
   );
