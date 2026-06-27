@@ -20,6 +20,7 @@ function App() {
       isCompleted: false,
     },
   ]);
+  const [filter, setFilter] = useState("All");
 
   const handleCheckBox = (id) => {
     setLists(
@@ -44,13 +45,22 @@ function App() {
     ]);
   };
 
+  const handleFilter = (text) => {
+    setFilter(text);
+    console.log(text);
+  };
+
   return (
     <div className="App">
       <Header />
       <main>
-        <InputBox updateList={updateList} />
+        <InputBox updateList={updateList} onFilter={handleFilter} />
         <hr className="divider" />
-        <ListContainer lists={lists} onToggle={handleCheckBox} />
+        <ListContainer
+          lists={lists}
+          onToggle={handleCheckBox}
+          filter={filter}
+        />
       </main>
     </div>
   );
