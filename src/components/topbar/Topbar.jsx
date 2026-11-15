@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./topbar.css";
 
-function InputBox({ updateList, onFilter }) {
+function InputBox({ updateList, onFilter, onDate }) {
   const [text, setText] = useState("");
   const [priority, setPriority] = useState("High");
 
@@ -40,12 +40,25 @@ function InputBox({ updateList, onFilter }) {
     onFilter(value);
   };
 
+  const handleDateChange = (e) => {
+    const value = e.target.value;
+
+    onDate(value);
+  };
+
   return (
     <div className="topbar-wrapper">
       <select className="status-dropdown" onChange={handleFilterChange}>
         <option value="All">All</option>
         <option value="Pending">Pending</option>
         <option value="Completed">Completed</option>
+      </select>
+      <select className="date-dropdown" onChange={handleDateChange}>
+        <option value="Today">Today</option>
+        <option value="Last Two Days">Last Two Days</option>
+        <option value="This Week">This Week</option>
+        <option value="This Month">This Month</option>
+        <option value="All">All</option>
       </select>
       <form action="" className="input-container" onSubmit={handleSubmit}>
         <input

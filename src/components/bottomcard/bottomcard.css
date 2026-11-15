@@ -103,3 +103,67 @@
   background-color: var(--delete-bg-hover);
   transform: scale(1.15);
 }
+
+.add-btn {
+  background: transparent;
+  border: none;
+  color: var(--add-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 6px;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.add-btn:hover {
+  color: var(--add-color);
+  background-color: var(--add-bg-hover);
+  transform: scale(1.15);
+}
+
+.card-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.replies-container {
+  margin-left: 5rem;
+  padding-left: 1rem;
+  /* border-left: 2px solid #e5e7eb; */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.nested-progress-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
+}
+
+.nested-progress-bar {
+  flex: 1;
+  height: 6px;
+  background-color: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.nested-progress-fill {
+  height: 100%;
+  background-color: #22c55e;
+  transition: width 0.3s ease;
+}
+
+.nested-progress-text {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}

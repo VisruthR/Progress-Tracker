@@ -12,6 +12,8 @@
   --delete-bg-hover: #fee2e2;
   --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   --transition: all 0.2s ease;
+  --add-color: #22c55e;
+  --add-bg-hover: rgba(34, 197, 94, 0.12);
 }
 
 body.dark-theme {
@@ -55,6 +57,7 @@ main {
   box-shadow: var(--shadow);
   gap: 30px;
   transition: background-color 0.3s ease;
+  position: relative;
 }
 
 .divider {
@@ -93,4 +96,26 @@ main {
 .theme-toggle:hover {
   background-color: var(--badge-bg);
   transform: scale(1.15) rotate(15deg);
+}
+
+.fixed-prompt {
+  display: flex;
+  flex-direction: column;
+  width: 30svw;
+  text-align: center;
+  gap: 20px;
+  border: 1px solid var(--border-color);
+  border-radius: 15px;
+  padding: 20px;
+  position: fixed;
+  background-color: var(--bg-surface);
+  top: 40svh;
+  left: 35svw;
+  box-sizing: border-box;
+  z-index: 9999999;
+
+  .replyText {
+    padding: 20px;
+    width: 100%;
+  }
 }

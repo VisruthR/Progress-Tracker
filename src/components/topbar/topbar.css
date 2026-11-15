@@ -3,7 +3,7 @@
   align-items: center;
   gap: 16px;
   width: 100%;
-  max-width: 800px;
+  max-width: 1010px;
   align-self: center;
   flex-wrap: wrap;
 }
@@ -63,8 +63,9 @@ button.add:active {
   transform: translateY(0);
 }
 
-.status-dropdown {
-  padding: 12px 32px 12px 16px;
+.status-dropdown,
+.date-dropdown {
+  padding: 12px 0 12px 12px;
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 600;
